@@ -49,20 +49,60 @@
  */
 export function addToCart(cart, item) {
   // Your code here
+  if(Array.isArray(cart) != true){
+    return -1;
+  }
+
+  if(item == "" || typeof item != "string"){
+    return cart.length;
+  }
+
+  return cart.push(item);
 }
 
 export function addUrgentItem(cart, item) {
-  // Your code here
+  // Your code 
+  if(Array.isArray(cart) != true){
+    return [];
+  }
+
+  if(item == "" || typeof item != "string"){
+    return cart;
+  }
+
+  cart.unshift(item);
+  return cart;
+
 }
 
 export function removeLastItem(cart) {
   // Your code here
+  if(Array.isArray(cart) != true || cart.length == 0){
+    return undefined;
+  }
+
+  return cart.pop();
 }
 
 export function isInCart(cart, item) {
   // Your code here
+  if(Array.isArray(cart) != true || cart.length == 0){
+    return false;
+  }
+
+  return cart.includes(item);
 }
 
 export function mergeCarts(cart1, cart2) {
   // Your code here
+  if(Array.isArray(cart1) != true && Array.isArray(cart2) != true){
+    return [];
+  }
+  else if(Array.isArray(cart1) != true){
+    return cart2;
+  }
+  else if(Array.isArray(cart2) != true){
+    return cart1;
+  }
+  return cart1.concat(cart2);
 }

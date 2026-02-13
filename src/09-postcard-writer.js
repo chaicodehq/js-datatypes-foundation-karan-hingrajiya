@@ -53,20 +53,75 @@
  */
 export function writePostcard(sender, receiver, message) {
   // Your code here
+
+  if (
+    typeof sender !== "string" ||
+    typeof receiver !== "string" ||
+    typeof message !== "string"
+  ) {
+    return "";
+  }
+
+  if (sender.trim() == "" || receiver.trim() == "" || message.trim() == "") {
+    return "";
+  }
+
+  let res = `Priy ${receiver.trim()},\n\n${message.trim()}\n\nAapka/Aapki,\n${sender.trim()}`;
+  return res;
 }
 
 export function isValidPincode(code) {
   // Your code here
+  if (typeof code !== "string") {
+    return false;
+  }
+
+  if (code.startsWith("0") || code.length !== 6) {
+    return false;
+  }
+
+  let res = /^[0-9]+$/.test(code);
+  return res;
 }
 
 export function formatPostcardField(label, value, width) {
   // Your code here
+  if (typeof label !== "string" || typeof value !== "string") {
+    return "";
+  }
+
+  if (width == "" || width == undefined) {
+    width = 12;
+  }
+
+  let res = `${label.padEnd(width, " ")}: ${value}`;
+  // ye empty string idhar dene ki jarur nahi he its by default give empty string at the end but still for clarity i did so i can keep up in future if i see this code.
+  return res;
 }
 
 export function isFromState(address, stateCode) {
   // Your code here
+  if (typeof address !== "string" || typeof stateCode !== "string") {
+    return false;
+  }
+
+  let res = address.endsWith(stateCode);
+  return res;
 }
 
 export function countVowels(message) {
   // Your code here
+  if (typeof message !== "string") {
+    return 0;
+  }
+
+  let matchedElemArr = message.match(/[aeiou]/gi);
+
+  if (matchedElemArr == null) {
+    return 0;
+  } else {
+    return matchedElemArr.length;
+  }
+  // return matchedElemArr.length;we can return directly like this length of the arr bcz if no elem founds in match() its return null so .length property cannot read null properties. it will give
+  // TypeError so better to check its not null that is why i use above if else 
 }

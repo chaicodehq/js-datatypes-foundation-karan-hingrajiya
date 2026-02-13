@@ -47,16 +47,63 @@
  */
 export function createPaanOrder(basePaan, customizations) {
   // Your code here
+  if (basePaan == null || typeof basePaan !== "object") {
+    return {};
+  }
+
+  if (typeof customizations !== "object") {
+    return {...basePaan}; //spread also returns copy so not to write too long using obj.assign i used spread operator
+  }
+  let copyObj = Object.assign({}, basePaan, customizations);
+  //assign property uses to add all the objects into one single object or source the source here is first we always assign source first here {} is the source.now in that {} object the basepaan and customiztion obj will added and this property only can add objects that can be enumerable (iteratable).
+  return copyObj;
 }
 
 export function freezeMenu(menu) {
   // Your code here
+  if (menu == null || typeof menu !== "object") {
+    return {};
+  }
+  let forzenObj = Object.freeze(menu);
+  return forzenObj;
 }
 
 export function updatePrices(menu, increase) {
   // Your code here
+  if (
+    menu == null ||
+    typeof menu !== "object" ||
+    typeof increase !== "number"
+  ) {
+    return {};
+  }
+
+  let keyValPairsArr = Object.entries(menu);
+  // keyValPairsArr.forEach(([key, val]) => {});
+  for (let i = 0; i < keyValPairsArr.length; i++) {
+    keyValPairsArr[i][1] += increase;
+    //expected error here bcz i didnt converted keyvalpairarr to number its string that we are accesing but thats not happening if we have obj = {name : "karan",age:20} here obj.entire convert this obj into like this [['name','karan'],['age',20]] so its already num by default in arr obj.entires smart enough to keep numeric val to be entact.
+  }
+
+  let resObj = Object.fromEntries(keyValPairsArr);
+  return resObj;
 }
 
 export function mergeDailySpecials(regularMenu, specialsMenu) {
   // Your code here
+  if (
+    (typeof regularMenu !== "object" || regularMenu == null) &&
+    (specialsMenu == null || typeof specialsMenu !== "object")
+  ) {
+    return {};
+  }
+
+  if(typeof regularMenu !== "object" && typeof specialsMenu === "object"){
+    return specialsMenu;
+  }else if(typeof regularMenu === "object" && typeof specialsMenu !== "object"){
+    return regularMenu;
+  }
+
+  let resObj = {...regularMenu,...specialsMenu};
+  return resObj;
 }

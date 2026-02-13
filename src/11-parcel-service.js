@@ -53,20 +53,48 @@
  */
 export function parcelToJSON(parcel) {
   // Your code here
+  if (parcel === undefined) {
+    return "";
+  }
+
+  try {
+    let jsonStr = JSON.stringify(parcel);
+    return jsonStr;
+  } catch (error) {//circular reference ke liye lagaya he try..catch here circular loop me fas gaya to error catch karke "" return kar dega so our code dont break with the error.
+    return "";
+  }
 }
 
 export function jsonToParcel(jsonString) {
   // Your code here
+  if (typeof jsonString !== "string") {
+    return null;
+  }
+
+  try {
+    let res = JSON.parse(jsonString);
+    return res;
+  } catch (err) {
+    return null; //can be syntaxError bcz not valid str cannot be converted to json data so its throw err.like 'karan','abc' like this strings which is not valid to be json format.
+  }
 }
 
 export function convertToString(value) {
   // Your code here
+  return String(value);
 }
 
 export function convertToNumber(value) {
   // Your code here
+  // its convert the valid string like "1234" to number not invalid str like "abc" to number bcz it cannot be converted to number
+  return Number(value);
 }
 
 export function stringToChars(str) {
   // Your code here
+  if(typeof str !== "string"){
+    return [];
+  }
+
+  return Array.from(str);
 }
